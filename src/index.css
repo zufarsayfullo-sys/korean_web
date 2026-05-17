@@ -12,7 +12,20 @@ body {
 button:hover { opacity: 0.92; }
 input:focus { outline: none; border-color: #C0392B !important; background: #fff !important; }
 select:focus { outline: none; }
-input:-webkit-autofill {
-  -webkit-text-fill-color: #1a1a1a;
-  -webkit-box-shadow: 0 0 0px 1000px #FAFAF8 inset;
+
+/* Fix browser autofill overriding input styles */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-text-fill-color: inherit !important;
+  -webkit-box-shadow: 0 0 0px 1000px transparent inset !important;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+/* Force dark inputs on navy backgrounds */
+.live-section input,
+.live-section select {
+  background-color: rgba(255,255,255,0.15) !important;
+  color: white !important;
 }
