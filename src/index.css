@@ -12,3 +12,7 @@ body {
 button:hover { opacity: 0.92; }
 input:focus { outline: none; border-color: #C0392B !important; background: #fff !important; }
 select:focus { outline: none; }
+input:-webkit-autofill {
+  -webkit-text-fill-color: #1a1a1a;
+  -webkit-box-shadow: 0 0 0px 1000px #FAFAF8 inset;
+}
