@@ -62,8 +62,15 @@ export default function Dashboard({ session, lang, setLang }) {
   }
 
   async function fetchLiveLesson(c) {
-    const { data } = await supabase.from('live_lessons').select('*').eq('course', c).eq('is_active', true).order('created_at', { ascending: false }).limit(1)
-    if (data && data.length > 0) setLiveLesson(data[0])
+    const now = new Date().toISOString()
+    const { data } = await supabase.from('live_lessons').select('*').eq('course', c).eq('is_active', true).gte('scheduled_at', now).order('scheduled_at', { ascending: true }).limit(1)
+    if (data && data.length > 0) {
+      setLiveLesson(data[0])
+    } else {
+      // fallback: get most recent if no upcoming
+      const { data: fallback } = await supabase.from('live_lessons').select('*').eq('course', c).eq('is_active', true).order('scheduled_at', { ascending: false }).limit(1)
+      if (fallback && fallback.length > 0) setLiveLesson(fallback[0])
+    }
   }
 
   async function fetchMarksData() {
