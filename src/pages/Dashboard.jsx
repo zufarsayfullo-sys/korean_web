@@ -25,11 +25,11 @@ export default function Dashboard({ session }) {
   const [course, setCourse] = useState('topik1')
   const [profileOpen, setProfileOpen] = useState(false)
   const [photoUrl, setPhotoUrl] = useState(null)
+  const [loading, setLoading] = useState(true)
   const fileRef = useRef()
 
   useEffect(() => {
     fetchProfile()
-    fetchLessons('topik1')
     fetchProgress()
   }, [])
 
@@ -48,6 +48,7 @@ export default function Dashboard({ session }) {
       setPhotoUrl(data.photo_url)
       setCourse(data.course || 'topik1')
     }
+    setLoading(false)
   }
 
   async function fetchLessons(c) {
@@ -72,11 +73,9 @@ export default function Dashboard({ session }) {
     if (!file) return
     const ext = file.name.split('.').pop()
     const path = `${session.user.id}/avatar.${ext}`
-
     const { error: uploadError } = await supabase.storage
       .from('avatars')
       .upload(path, file, { upsert: true })
-
     if (!uploadError) {
       const { data: urlData } = supabase.storage.from('avatars').getPublicUrl(path)
       const url = urlData.publicUrl
@@ -93,6 +92,37 @@ export default function Dashboard({ session }) {
     const p = progress.find(p => p.lesson_id === lessonId)
     return p ? p.tasks_done : 0
   }
+
+  if (loading) return (
+    <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#FAFAF8' }}>
+      <div style={{ width: 32, height: 32, border: '2px solid #C0392B', borderTop: '2px solid transparent', borderRadius: '50%', animation: 'spin 0.8s linear infinite' }} />
+      <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+    </div>
+  )
+
+  // PENDING SCREEN
+  if (profile?.status === 'pending') return (
+    <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#FAFAF8', fontFamily: "'DM Sans', sans-serif" }}>
+      <div style={{ textAlign: 'center', maxWidth: 400, padding: '2rem' }}>
+        <div style={{ width: 64, height: 64, background: '#FAEEDA', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.5rem', fontSize: 28 }}>⏳</div>
+        <h2 style={{ fontSize: 24, fontWeight: 600, marginBottom: '0.75rem', color: '#1a1a1a' }}>Waiting for approval</h2>
+        <p style={{ fontSize: 14, color: '#6B6B6B', lineHeight: 1.7, marginBottom: '1.5rem' }}>Your account is pending review by Aiman. You will get access to your course once approved. Please check back soon!</p>
+        <button onClick={handleLogout} style={{ padding: '10px 24px', fontSize: 13, background: '#F2F2F0', border: 'none', borderRadius: 10, cursor: 'pointer', color: '#1a1a1a', fontFamily: "'DM Sans', sans-serif" }}>Sign out</button>
+      </div>
+    </div>
+  )
+
+  // REJECTED SCREEN
+  if (profile?.status === 'rejected') return (
+    <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#FAFAF8', fontFamily: "'DM Sans', sans-serif" }}>
+      <div style={{ textAlign: 'center', maxWidth: 400, padding: '2rem' }}>
+        <div style={{ width: 64, height: 64, background: '#FDECEA', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.5rem', fontSize: 28 }}>✗</div>
+        <h2 style={{ fontSize: 24, fontWeight: 600, marginBottom: '0.75rem', color: '#1a1a1a' }}>Access not approved</h2>
+        <p style={{ fontSize: 14, color: '#6B6B6B', lineHeight: 1.7, marginBottom: '1.5rem' }}>Unfortunately your account was not approved. Please contact Aiman for more information.</p>
+        <button onClick={handleLogout} style={{ padding: '10px 24px', fontSize: 13, background: '#F2F2F0', border: 'none', borderRadius: 10, cursor: 'pointer', color: '#1a1a1a', fontFamily: "'DM Sans', sans-serif" }}>Sign out</button>
+      </div>
+    </div>
+  )
 
   const firstName = profile?.full_name?.split(' ')[0] || 'Student'
   const initial = firstName[0]?.toUpperCase() || 'S'
@@ -129,17 +159,20 @@ export default function Dashboard({ session }) {
           <div style={s.sectionTitle}>My Homework</div>
           <span style={s.badge}>{courseName}</span>
         </div>
-
         {lessons.length === 0 ? (
           <div style={s.empty}>No lessons available yet. Aiman will add them soon!</div>
         ) : (
           <div style={s.hwGrid}>
-            {lessons.map((lesson, i) => {
+            {lessons.map((lesson) => {
               const done = getProgress(lesson.id)
               const total = lesson.total_tasks
               const pct = total > 0 ? Math.round((done / total) * 100) : 0
               const state = pct === 100 ? 'done' : pct > 0 ? 'partial' : 'pending'
-              const colors = { done: { num: '#27500A', bg: '#EAF3DE', bar: '#639922', pct: '#27500A' }, partial: { num: '#633806', bg: '#FAEEDA', bar: '#EF9F27', pct: '#633806' }, pending: { num: '#6B6B6B', bg: '#F2F2F0', bar: '#D3D1C7', pct: '#6B6B6B' } }
+              const colors = {
+                done: { num: '#27500A', bg: '#EAF3DE', bar: '#639922', pct: '#27500A' },
+                partial: { num: '#633806', bg: '#FAEEDA', bar: '#EF9F27', pct: '#633806' },
+                pending: { num: '#6B6B6B', bg: '#F2F2F0', bar: '#D3D1C7', pct: '#6B6B6B' }
+              }
               const c = colors[state]
               return (
                 <div key={lesson.id} style={s.hwCard}>
@@ -215,7 +248,7 @@ const s = {
   topbarName: { fontSize: 18, fontWeight: 600, color: '#1a1a1a' },
   topbarRight: { display: 'flex', alignItems: 'center', gap: 10 },
   courseSelect: { fontSize: 12, padding: '5px 10px', borderRadius: 8, border: '1px solid rgba(0,0,0,0.08)', background: '#FAFAF8', fontFamily: "'DM Sans', sans-serif", color: '#1a1a1a', cursor: 'pointer' },
-  profileBtn: { display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer', background: 'none', border: 'none', padding: '4px 8px 4px 4px', borderRadius: 40, fontFamily: "'DM Sans', sans-serif' " },
+  profileBtn: { display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer', background: 'none', border: 'none', padding: '4px 8px 4px 4px', borderRadius: 40, fontFamily: "'DM Sans', sans-serif" },
   profileName: { fontSize: 13, fontWeight: 500, color: '#1a1a1a' },
   profileRole: { fontSize: 11, color: '#6B6B6B' },
   main: { flex: 1, padding: '2rem 1.5rem', maxWidth: 860, margin: '0 auto', width: '100%' },
