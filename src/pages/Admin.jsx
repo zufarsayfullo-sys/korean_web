@@ -615,6 +615,6 @@ const s = {
   deleteBtn: { padding: '5px 12px', background: '#FDECEA', color: '#C0392B', border: 'none', borderRadius: 7, fontSize: 11, fontWeight: 700, cursor: 'pointer', fontFamily: "'DM Sans',sans-serif" },
   liveCard: { background: 'linear-gradient(135deg,#003478,#00449F)', borderRadius: 16, padding: 20, marginBottom: '1.5rem' },
   liveLabelStyle: { display: 'block', fontSize: 10, fontWeight: 700, color: 'rgba(255,255,255,0.6)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 5 },
-  liveInput: { width: '100%', padding: '9px 12px', fontSize: 13, fontFamily: "'DM Sans',sans-serif", border: '1px solid rgba(255,255,255,0.2)', borderRadius: 9, background: 'rgba(255,255,255,0.1)', color: 'white', outline: 'none', boxSizing: 'border-box' },
+  liveInput: { width: '100%', padding: '9px 12px', fontSize: 13, fontFamily: "'DM Sans',sans-serif", border: '1px solid rgba(255,255,255,0.3)', borderRadius: 9, background: 'rgba(255,255,255,0.15)', color: 'white', outline: 'none', boxSizing: 'border-box', colorScheme: 'dark' },
   liveSaveBtn: { padding: '9px 20px', background: 'rgba(255,255,255,0.2)', color: 'white', border: '1px solid rgba(255,255,255,0.3)', borderRadius: 9, fontSize: 12, fontWeight: 700, cursor: 'pointer', fontFamily: "'DM Sans',sans-serif" },
 }

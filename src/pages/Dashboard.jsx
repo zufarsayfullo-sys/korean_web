@@ -248,9 +248,9 @@ export default function Dashboard({ session, lang, setLang }) {
                 <>
                   <div style={{ fontSize: 17, fontWeight: 700, color: 'white', marginBottom: 14, position: 'relative', zIndex: 1, lineHeight: 1.3 }}>{liveLesson.title}</div>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 6, marginBottom: 16, position: 'relative', zIndex: 1 }}>
-                    {liveLesson.scheduled_at && <>
-                      <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.8)', display: 'flex', alignItems: 'center', gap: 6 }}>📅 {formatDate(liveLesson.scheduled_at)}</div>
-                      <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.8)', display: 'flex', alignItems: 'center', gap: 6 }}>🕕 {formatTime(liveLesson.scheduled_at)}</div>
+                    {true {liveLesson.scheduled_at && <>{liveLesson.scheduled_at && <> <>
+                      <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.8)', display: 'flex', alignItems: 'center', gap: 6 }}>📅 {liveLesson.scheduled_at ? formatDate(liveLesson.scheduled_at) : 'Date to be announced'}</div>
+                      <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.8)', display: 'flex', alignItems: 'center', gap: 6 }}>🕕 {liveLesson.scheduled_at ? formatTime(liveLesson.scheduled_at) : 'Time to be announced'}</div>
                     </>}
                     <div style={{ fontSize: 10, color: 'rgba(255,255,255,0.45)', fontFamily: 'monospace', background: 'rgba(255,255,255,0.08)', padding: '3px 8px', borderRadius: 5, display: 'inline-block' }}>{liveLesson.meet_link}</div>
                   </div>
