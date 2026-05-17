@@ -396,43 +396,43 @@ export default function Admin({ session }) {
             <div>
               <div style={s.secHeader}><div style={s.secTitle}>Live Lesson</div></div>
               <div style={s.liveCard}>
-                <div style={{ fontSize: 14, fontWeight: 700, color: 'white', marginBottom: 16, display: 'flex', alignItems: 'center', gap: 8 }}>
+                <div style={{ fontSize: 14, fontWeight: 700, color: '#1a1a1a', marginBottom: 16, display: 'flex', alignItems: 'center', gap: 8 }}>
                   <div style={{ width: 8, height: 8, borderRadius: '50%', background: '#4ade80', animation: 'pulse 1.5s infinite' }} />
                   Set up live lesson
                 </div>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 12 }}>
                   <div>
                     <label style={s.liveLabelStyle}>Course</label>
-                    <select value={liveCourse} onChange={e => setLiveCourse(e.target.value)} style={{...s.liveInput, backgroundColor: 'rgba(255,255,255,0.15)', color: 'white'}}>
+                    <select value={liveCourse} onChange={e => setLiveCourse(e.target.value)} style={{...s.liveInput, backgroundColor: '#FAFAF8', color: '#1a1a1a'}}>
                       <option value="topik1">TOPIK 1</option>
                       <option value="topik2">TOPIK 2</option>
                     </select>
                   </div>
                   <div>
                     <label style={s.liveLabelStyle}>Lesson Title</label>
-                    <input value={liveTitle} onChange={e => setLiveTitle(e.target.value)} placeholder="e.g. Grammar Review" style={{...s.liveInput, backgroundColor: 'rgba(255,255,255,0.15)', color: 'white'}} />
+                    <input value={liveTitle} onChange={e => setLiveTitle(e.target.value)} placeholder="e.g. Grammar Review" style={{...s.liveInput, backgroundColor: '#FAFAF8', color: '#1a1a1a'}} />
                   </div>
                   <div>
                     <label style={s.liveLabelStyle}>Date & Time</label>
-                    <input type="datetime-local" value={liveDate} onChange={e => setLiveDate(e.target.value)} style={{...s.liveInput, backgroundColor: 'rgba(255,255,255,0.15)', color: 'white'}} />
+                    <input type="datetime-local" value={liveDate} onChange={e => setLiveDate(e.target.value)} style={{...s.liveInput, backgroundColor: '#FAFAF8', color: '#1a1a1a'}} />
                   </div>
                   <div>
                     <label style={s.liveLabelStyle}>Status</label>
-                    <select value={liveActive ? 'active' : 'inactive'} onChange={e => setLiveActive(e.target.value === 'active')} style={{...s.liveInput, backgroundColor: 'rgba(255,255,255,0.15)', color: 'white'}}>
+                    <select value={liveActive ? 'active' : 'inactive'} onChange={e => setLiveActive(e.target.value === 'active')} style={{...s.liveInput, backgroundColor: '#FAFAF8', color: '#1a1a1a'}}>
                       <option value="active">Active</option>
                       <option value="inactive">Inactive</option>
                     </select>
                   </div>
                   <div style={{ gridColumn: '1/-1' }}>
                     <label style={s.liveLabelStyle}>Google Meet / Zoom Link</label>
-                    <input value={liveLink} onChange={e => setLiveLink(e.target.value)} placeholder="https://meet.google.com/abc-defg-hij" style={{...s.liveInput, backgroundColor: 'rgba(255,255,255,0.15)', color: 'white'}} />
+                    <input value={liveLink} onChange={e => setLiveLink(e.target.value)} placeholder="https://meet.google.com/abc-defg-hij" style={{...s.liveInput, backgroundColor: '#FAFAF8', color: '#1a1a1a'}} />
                   </div>
                 </div>
                 <button onClick={saveLiveLesson} style={s.liveSaveBtn}>Save & Activate →</button>
                 {liveLesson && (
                   <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginTop: 12 }}>
                     <div style={{ width: 7, height: 7, borderRadius: '50%', background: '#4ade80', animation: 'pulse 1.5s infinite' }} />
-                    <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.7)' }}>Currently active: {liveLesson.title} {liveLesson.scheduled_at ? '· ' + new Date(liveLesson.scheduled_at).toLocaleDateString() : ''}</div>
+                    <div style={{ fontSize: 11, color: '#6B6B6B' }}>Currently active: {liveLesson.title} {liveLesson.scheduled_at ? '· ' + new Date(liveLesson.scheduled_at).toLocaleDateString() : ''}</div>
                   </div>
                 )}
               </div>
@@ -613,8 +613,8 @@ const s = {
   lessonCard: { background: '#fff', borderRadius: 12, padding: '12px 16px', border: '0.5px solid rgba(0,0,0,0.08)', display: 'flex', alignItems: 'center', gap: 12 },
   editBtn: { padding: '5px 12px', background: '#E8EEF8', color: '#003478', border: 'none', borderRadius: 7, fontSize: 11, fontWeight: 700, cursor: 'pointer', fontFamily: "'DM Sans',sans-serif" },
   deleteBtn: { padding: '5px 12px', background: '#FDECEA', color: '#C0392B', border: 'none', borderRadius: 7, fontSize: 11, fontWeight: 700, cursor: 'pointer', fontFamily: "'DM Sans',sans-serif" },
-  liveCard: { background: 'linear-gradient(135deg,#003478,#00449F)', borderRadius: 16, padding: 20, marginBottom: '1.5rem' },
-  liveLabelStyle: { display: 'block', fontSize: 10, fontWeight: 700, color: 'rgba(255,255,255,0.6)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 5 },
-  liveInput: { width: '100%', padding: '9px 12px', fontSize: 13, fontFamily: "'DM Sans',sans-serif", border: '1px solid rgba(255,255,255,0.3)', borderRadius: 9, background: '#1a4a8a', color: 'white', outline: 'none', boxSizing: 'border-box', colorScheme: 'dark' },
-  liveSaveBtn: { padding: '9px 20px', background: 'rgba(255,255,255,0.2)', color: 'white', border: '1px solid rgba(255,255,255,0.3)', borderRadius: 9, fontSize: 12, fontWeight: 700, cursor: 'pointer', fontFamily: "'DM Sans',sans-serif" },
+  liveCard: { background: '#fff', borderRadius: 16, padding: 20, marginBottom: '1.5rem', border: '0.5px solid rgba(0,0,0,0.08)' },
+  liveLabelStyle: { display: 'block', fontSize: 10, fontWeight: 700, color: '#6B6B6B', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 5 },
+  liveInput: { width: '100%', padding: '9px 12px', fontSize: 13, fontFamily: "'DM Sans',sans-serif", border: '1px solid rgba(255,255,255,0.3)', borderRadius: 9, background: '#FAFAF8', color: '#1a1a1a', outline: 'none', boxSizing: 'border-box', colorScheme: 'dark' },
+  liveSaveBtn: { padding: '9px 20px', background: '#C0392B', color: 'white', border: 'none', borderRadius: 9, fontSize: 12, fontWeight: 700, cursor: 'pointer', fontFamily: "'DM Sans',sans-serif" },
 }
