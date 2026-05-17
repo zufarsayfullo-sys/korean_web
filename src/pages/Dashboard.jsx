@@ -255,10 +255,8 @@ export default function Dashboard({ session, lang, setLang }) {
                 <>
                   <div style={{ fontSize: 17, fontWeight: 700, color: 'white', marginBottom: 14, position: 'relative', zIndex: 1, lineHeight: 1.3 }}>{liveLesson.title}</div>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 6, marginBottom: 16, position: 'relative', zIndex: 1 }}>
-                    {true {liveLesson.scheduled_at && <>{liveLesson.scheduled_at && <> <>
-                      <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.8)', display: 'flex', alignItems: 'center', gap: 6 }}>📅 {liveLesson.scheduled_at ? formatDate(liveLesson.scheduled_at) : 'Date to be announced'}</div>
-                      <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.8)', display: 'flex', alignItems: 'center', gap: 6 }}>🕕 {liveLesson.scheduled_at ? formatTime(liveLesson.scheduled_at) : 'Time to be announced'}</div>
-                    </>}
+                    <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.8)', display: 'flex', alignItems: 'center', gap: 6 }}>📅 {liveLesson.scheduled_at ? formatDate(liveLesson.scheduled_at) : 'Date to be announced'}</div>
+                    <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.8)', display: 'flex', alignItems: 'center', gap: 6 }}>🕕 {liveLesson.scheduled_at ? formatTime(liveLesson.scheduled_at) : 'Time to be announced'}</div>
                     <div style={{ fontSize: 10, color: 'rgba(255,255,255,0.45)', fontFamily: 'monospace', background: 'rgba(255,255,255,0.08)', padding: '3px 8px', borderRadius: 5, display: 'inline-block' }}>{liveLesson.meet_link}</div>
                   </div>
                   <button onClick={() => copyLink(liveLesson.meet_link)} style={s.liveBoxBtn}>{copied ? t.copied : t.copyLink}</button>
@@ -547,3 +545,4 @@ const s = {
   modal: { background: '#fff', borderRadius: 20, padding: '1.75rem', boxShadow: '0 8px 40px rgba(0,0,0,0.12)' },
   th: { padding: '9px 8px', fontSize: 9, fontWeight: 700, color: '#6B6B6B', textTransform: 'uppercase', letterSpacing: '0.06em', borderBottom: '1px solid rgba(0,0,0,0.08)', textAlign: 'center', background: '#FAFAF8', whiteSpace: 'nowrap' },
 }
+
