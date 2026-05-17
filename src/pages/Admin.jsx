@@ -403,29 +403,29 @@ export default function Admin({ session }) {
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 12 }}>
                   <div>
                     <label style={s.liveLabelStyle}>Course</label>
-                    <select value={liveCourse} onChange={e => setLiveCourse(e.target.value)} style={s.liveInput}>
+                    <select value={liveCourse} onChange={e => setLiveCourse(e.target.value)} style={{...s.liveInput, backgroundColor: 'rgba(255,255,255,0.15)', color: 'white'}}>
                       <option value="topik1">TOPIK 1</option>
                       <option value="topik2">TOPIK 2</option>
                     </select>
                   </div>
                   <div>
                     <label style={s.liveLabelStyle}>Lesson Title</label>
-                    <input value={liveTitle} onChange={e => setLiveTitle(e.target.value)} placeholder="e.g. Grammar Review" style={s.liveInput} />
+                    <input value={liveTitle} onChange={e => setLiveTitle(e.target.value)} placeholder="e.g. Grammar Review" style={{...s.liveInput, backgroundColor: 'rgba(255,255,255,0.15)', color: 'white'}} />
                   </div>
                   <div>
                     <label style={s.liveLabelStyle}>Date & Time</label>
-                    <input type="datetime-local" value={liveDate} onChange={e => setLiveDate(e.target.value)} style={s.liveInput} />
+                    <input type="datetime-local" value={liveDate} onChange={e => setLiveDate(e.target.value)} style={{...s.liveInput, backgroundColor: 'rgba(255,255,255,0.15)', color: 'white'}} />
                   </div>
                   <div>
                     <label style={s.liveLabelStyle}>Status</label>
-                    <select value={liveActive ? 'active' : 'inactive'} onChange={e => setLiveActive(e.target.value === 'active')} style={s.liveInput}>
+                    <select value={liveActive ? 'active' : 'inactive'} onChange={e => setLiveActive(e.target.value === 'active')} style={{...s.liveInput, backgroundColor: 'rgba(255,255,255,0.15)', color: 'white'}}>
                       <option value="active">Active</option>
                       <option value="inactive">Inactive</option>
                     </select>
                   </div>
                   <div style={{ gridColumn: '1/-1' }}>
                     <label style={s.liveLabelStyle}>Google Meet / Zoom Link</label>
-                    <input value={liveLink} onChange={e => setLiveLink(e.target.value)} placeholder="https://meet.google.com/abc-defg-hij" style={s.liveInput} />
+                    <input value={liveLink} onChange={e => setLiveLink(e.target.value)} placeholder="https://meet.google.com/abc-defg-hij" style={{...s.liveInput, backgroundColor: 'rgba(255,255,255,0.15)', color: 'white'}} />
                   </div>
                 </div>
                 <button onClick={saveLiveLesson} style={s.liveSaveBtn}>Save & Activate →</button>
