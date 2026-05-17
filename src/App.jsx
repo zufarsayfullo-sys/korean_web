@@ -6,17 +6,16 @@ import Dashboard from './pages/Dashboard'
 export default function App() {
   const [session, setSession] = useState(null)
   const [loading, setLoading] = useState(true)
+  const [lang, setLang] = useState('en')
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session)
       setLoading(false)
     })
-
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session)
     })
-
     return () => subscription.unsubscribe()
   }, [])
 
@@ -27,5 +26,7 @@ export default function App() {
     </div>
   )
 
-  return session ? <Dashboard session={session} /> : <Auth />
+  return session
+    ? <Dashboard session={session} lang={lang} setLang={setLang} />
+    : <Auth lang={lang} setLang={setLang} />
 }
